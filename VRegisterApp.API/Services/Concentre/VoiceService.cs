@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VRegisterApp.API.DAL;
@@ -15,7 +16,6 @@ namespace VRegisterApp.API.Services.Concentre
         public VoiceService(VRegisterContext db)
         {
             _db = db;
-
         }
         public async Task<bool> RegisterUser(RegisterRequest registerRequest)
         {
@@ -27,51 +27,72 @@ namespace VRegisterApp.API.Services.Concentre
             var newUser = new User();
             newUser.Email = registerRequest.Email;
             newUser.TextContext = registerRequest.TextContext;
-            newUser = FindPattern(registerRequest, newUser);
-
-            // await _db.Users.AddAsync(newUser);
-            // await _db.SaveChangesAsync();
+            var samplesNumber = new Random();
+            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(200, 260));
+            await _db.Users.AddAsync(newUser);
+            await _db.SaveChangesAsync();
             return true;
         }
 
-        private User FindPattern(RegisterRequest registerRequest, User newUser)
+        private User FindPattern(RegisterRequest registerRequest, User newUser, int AlgorithmSamples)
         {
             var user = newUser;
 
-            var sample1 = registerRequest.VoiceSample1;
-            var sample2 = registerRequest.VoiceSample2;
-            var sample3 = registerRequest.VoiceSample3;
+            var sample1 = registerRequest.VoiceSample1.Substring(37, 33000);
+            var sample2 = registerRequest.VoiceSample2.Substring(37, 33000);
+            var sample3 = registerRequest.VoiceSample3.Substring(37, 33000);
 
             var sampleLength = sample1.Length;
-            int areaLength = (int)Math.Round((sampleLength / 10) * 1.1);
+            int areaLength = (int)(sampleLength / AlgorithmSamples);
             user.AreaLength = areaLength;
 
-            var pattern = new string[11];
-            for (int j = 1; j <= 10; j++)
+            if (areaLength * AlgorithmSamples > 33000)
+            {
+                areaLength -= 15;
+            }
+
+            var pattern = new string[AlgorithmSamples + 1];
+            for (int j = 1; j <= AlgorithmSamples; j++)
             {
                 pattern[j] = "";
                 var machCount = 0;
                 var patternBegining = 0;
                 string mattern = "";
-                for (int i = 0; i < (areaLength * j); i++)
+                var maxPatternCount = 0;
+                for (int i = ((areaLength * j) - areaLength); i < (areaLength * j); i++)
                 {
-                    if (sample1[i] == sample2[i] && sample1[i] == sample3[i])
+                    if (machCount == 1)
+                    {
+                        patternBegining = i - 1;
+                    }
+
+                    if (sample1.Contains(mattern) && sample2.Contains(mattern) && sample3.Contains(mattern))
                     {
                         mattern += sample1[i];
-                        patternBegining = i;
                         machCount++;
                     }
                     else
                     {
-                        if (machCount > 0)
+                        if (maxPatternCount == 0)
                         {
+                            maxPatternCount = machCount;
                             pattern[j] = mattern;
                         }
-                        machCount = 0;
+
+                        if (machCount > maxPatternCount)
+                        {
+                            maxPatternCount = machCount;
+                            pattern[j] = mattern;
+                        }
+
                         mattern = "";
+                        machCount = 0;
                     }
                 }
             }
+
+            user.AlgorithmSamples = AlgorithmSamples;
+            user.Pattern = string.Join(",",pattern);
 
             return user;
         }

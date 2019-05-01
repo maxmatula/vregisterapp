@@ -28,7 +28,14 @@ namespace VRegisterApp.API.Controllers
 
             var result = await _voiceService.RegisterUser(request);
 
-            return Ok("Register successful");
+            if (result)
+            {
+                return Ok("Register successful");
+            }
+            else
+            {
+                return BadRequest("Registration failed");
+            }
         }
 
         [HttpPost("login")]
