@@ -1,0 +1,14 @@
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/bin/Debug/netcoreapp2.1/VRegisterApp.API.deps.json
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/bin/Debug/netcoreapp2.1/VRegisterApp.API.runtimeconfig.json
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/bin/Debug/netcoreapp2.1/VRegisterApp.API.runtimeconfig.dev.json
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/bin/Debug/netcoreapp2.1/VRegisterApp.API.dll
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/bin/Debug/netcoreapp2.1/VRegisterApp.API.pdb
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.csprojAssemblyReference.cache
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.csproj.CoreCompileInputs.cache
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.RazorAssemblyInfo.cache
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.RazorAssemblyInfo.cs
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.AssemblyInfoInputs.cache
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.AssemblyInfo.cs
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.RazorTargetAssemblyInfo.cache
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.dll
+/Users/em/Desktop/P.Cudek/VRegisterApp/vregisterapp/VRegisterApp.API/obj/Debug/netcoreapp2.1/VRegisterApp.API.pdb
