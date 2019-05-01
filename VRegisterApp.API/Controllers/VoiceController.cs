@@ -58,5 +58,20 @@ namespace VRegisterApp.API.Controllers
                 return BadRequest("Login failed");
             }
         }
+
+        [HttpGet("getContext/{email}")]
+        public async Task<IActionResult> GetContext(string email)
+        {
+            var context = await _voiceService.GetUserContext(email);
+
+            if (context != "")
+            {
+                return Ok(context);
+            }
+            else
+            {
+                return BadRequest("User does not exists!");
+            }
+        }
     }
 }
