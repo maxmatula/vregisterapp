@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VRegisterApp.API.DAL;
+using VRegisterApp.API.DTO.Login;
 using VRegisterApp.API.DTO.Register;
 using VRegisterApp.API.Models;
 using VRegisterApp.API.Services.Abstract;
@@ -17,6 +18,40 @@ namespace VRegisterApp.API.Services.Concentre
         {
             _db = db;
         }
+
+        public async Task<string> GetUserContext(string email)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user != null)
+            {
+                return user.TextContext;
+            }
+
+            return "";
+        }
+
+        public async Task<bool> LoginUser(LoginRequest loginRequest)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == loginRequest.Email);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var sampleMach = FindMach(loginRequest.VoiceSample1, user);
+
+            if (sampleMach >= user.AlgorithmSamples - 20)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> RegisterUser(RegisterRequest registerRequest)
         {
             if (await _db.Users.AnyAsync(u => u.Email == registerRequest.Email))
@@ -32,6 +67,29 @@ namespace VRegisterApp.API.Services.Concentre
             await _db.Users.AddAsync(newUser);
             await _db.SaveChangesAsync();
             return true;
+        }
+
+        private int FindMach(string voiceSample, User user)
+        {
+            var sampleMach = 0;
+            var sample = voiceSample.Substring(37, 33000);
+            var sampleLength = sample.Length;
+            int areaLength = user.AreaLength;
+
+            var pattern = user.Pattern.Split(",");
+
+            for (int j = 1; j <= user.AlgorithmSamples; j++)
+            {
+                var compArea = sample.Substring((areaLength * j) - areaLength, areaLength);
+
+                if (compArea.Contains(pattern[j]))
+                {
+                    sampleMach++;
+                }
+            }
+
+            return sampleMach;
+
         }
 
         private User FindPattern(RegisterRequest registerRequest, User newUser, int AlgorithmSamples)
@@ -92,7 +150,7 @@ namespace VRegisterApp.API.Services.Concentre
             }
 
             user.AlgorithmSamples = AlgorithmSamples;
-            user.Pattern = string.Join(",",pattern);
+            user.Pattern = string.Join(",", pattern);
 
             return user;
         }

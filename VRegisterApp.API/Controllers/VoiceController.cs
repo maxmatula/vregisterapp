@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using VRegisterApp.API.DTO.Login;
 using VRegisterApp.API.DTO.Register;
 using VRegisterApp.API.Services.Abstract;
 
@@ -39,9 +40,23 @@ namespace VRegisterApp.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            return Ok("Logged in successfully");
+            if (request == null)
+            {
+                return BadRequest("Request Empty");
+            }
+
+            var result = await _voiceService.LoginUser(request);
+
+            if (result)
+            {
+                return Ok("Login successful");
+            }
+            else
+            {
+                return BadRequest("Login failed");
+            }
         }
     }
 }
