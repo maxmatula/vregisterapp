@@ -42,7 +42,7 @@ namespace VRegisterApp.API.Services.Concentre
 
             var sampleMach = FindMach(loginRequest.VoiceSample1, user);
 
-            if (sampleMach >= user.AlgorithmSamples - 20)
+            if (sampleMach >= 250)
             {
                 return true;
             }
@@ -63,7 +63,7 @@ namespace VRegisterApp.API.Services.Concentre
             newUser.Email = registerRequest.Email;
             newUser.TextContext = registerRequest.TextContext;
             var samplesNumber = new Random();
-            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(700, 800));
+            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(2000, 2400));
             await _db.Users.AddAsync(newUser);
             await _db.SaveChangesAsync();
             return true;
