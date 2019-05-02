@@ -1,38 +1,45 @@
 <div class="container">
-    <div class="mt-4 mb-4 text-center">
-      <h2>Voice Register APP</h2>
-      <hr>
-      <br>
-      <h3 class="mb-4">Login</h3>
-      <div class="col-sm-12 text-right">
-          <div class="btn-group right">
-              <button class="btn btn-info" [routerLink]="['/home']">
-                Back to Home
-              </button>
+  <div class="mt-4 mb-4 text-center">
+    <h2>Voice Register APP</h2>
+    <hr>
+    <br>
+    <h3 class="mb-4">Login</h3>
+    <div class="col-sm-12 text-right">
+      <div class="btn-group right">
+        <button class="btn btn-info" [routerLink]="['/home']">
+          Back to Home
+        </button>
       </div>
     </div>
     <h2>Login with voice</h2>
     <hr>
-    <form #loginForm="ngForm" novalidate (ngSubmit)="loginForm.valid && login()" class="col-sm-6 offset-3">
-      <div class="form-group">
-        <input type="text" name="email" placeholder="e-mail" class="form-control" [(ngModel)]="model.email" required>
-      </div>
-      <button [disabled]="!model.email" class="btn btn-block btn-success" (click)="getContext()">Check Email</button>
-      <div class="form-group">
-        <input type="hidden" name="voiceSample1" class="form-control" [(ngModel)]="model.voiceSample1" required>
-      </div>
-      <div class="gvr" *ngIf="context">
+    <div *ngIf="response == null">
+      <form #loginForm="ngForm" novalidate (ngSubmit)="loginForm.valid && login()" class="col-sm-6 offset-3">
         <div class="form-group">
-          <span>
-            <p>Voice sample status: <i [ngClass]="model.voiceSample1 ? 'green' : 'red'" class="fa fa-circle"></i></p>
-          </span>
-          <button [disabled]="model.voiceSample1" class="btn btn-block btn-warning" (click)="getSample1()">Record Voice Sample 1</button>
+          <input type="text" name="email" placeholder="e-mail" class="form-control" [(ngModel)]="model.email" required>
         </div>
-      </div>
-      <div class="form-group mt-4 mb-4">
-        <input [disabled]="!loginForm.valid" type="submit" value="Logowanie" class="btn btn-success btn-lg">
-      </div>
-    </form>
+        <button [disabled]="!model.email" class="btn btn-block btn-success" (click)="getContext()">Check Email</button>
+        <div class="form-group">
+          <input type="hidden" name="voiceSample1" class="form-control" [(ngModel)]="model.voiceSample1" required>
+        </div>
+        <div class="gvr" *ngIf="context">
+          <div class="form-group">
+            <span>
+              <p>Voice sample status: <i [ngClass]="model.voiceSample1 ? 'green' : 'red'" class="fa fa-circle"></i></p>
+            </span>
+            <button [disabled]="model.voiceSample1" class="btn btn-block btn-warning" (click)="getSample1()">Record
+              Voice Sample 1</button>
+          </div>
+        </div>
+        <div class="form-group mt-4 mb-4">
+          <input [disabled]="!loginForm.valid" type="submit" value="Logowanie" class="btn btn-success btn-lg">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="response">
+    <h3 class="text-center">{{response}}</h3>
   </div>
 
   <div *ngIf="recording" class="recording-overlay p-4 text-center">
@@ -45,4 +52,4 @@
       <p class="text-giant font-weight-light green">{{context}}</p>
     </div>
   </div>
-  </div>
+</div>

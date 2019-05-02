@@ -63,7 +63,7 @@ namespace VRegisterApp.API.Services.Concentre
             newUser.Email = registerRequest.Email;
             newUser.TextContext = registerRequest.TextContext;
             var samplesNumber = new Random();
-            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(500, 600));
+            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(700, 800));
             await _db.Users.AddAsync(newUser);
             await _db.SaveChangesAsync();
             return true;
@@ -80,7 +80,7 @@ namespace VRegisterApp.API.Services.Concentre
 
             for (int j = 1; j <= user.AlgorithmSamples; j++)
             {
-                var compArea = sample.Substring((areaLength * j) - areaLength, areaLength);
+                var compArea = sample;
 
                 if (compArea.Contains(pattern[j]))
                 {

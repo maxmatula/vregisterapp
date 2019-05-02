@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   apiUrl = environment.apiUrl;
   recording = false;
   timer = -6;
+  response: string;
 
   constructor(private http: HttpClient) {
     this.model = new Login();
@@ -27,9 +28,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.http.post(`${this.apiUrl}/voice/login`, this.model, {responseType: 'text'}).subscribe(resp => {
-      console.log(resp);
+      this.response = resp;
     }, error => {
-      console.log(error);
+      this.response = 'Unauthorized! Login failed';
     });
   }
 

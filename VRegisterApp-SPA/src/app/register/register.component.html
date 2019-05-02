@@ -11,50 +11,58 @@
     </div>
     <h2>Register with voice</h2>
     <hr>
-    <form #registerForm="ngForm" novalidate (ngSubmit)="registerForm.valid && register()" class="col-sm-6 offset-3">
-      <div class="form-group">
-        <input type="text" name="email" placeholder="e-mail" class="form-control" [(ngModel)]="model.email" required>
-      </div>
-      <div *ngIf="model.email" class="form-group">
-        <p>Type secret text context:</p>
-        <input type="text" name="textContext" placeholder="Example: Roses are red" class="form-control"
-          [(ngModel)]="model.textContext" required>
-      </div>
-      <div class="form-group">
-        <input type="hidden" name="voiceSample1" class="form-control" [(ngModel)]="model.voiceSample1" required>
-      </div>
-      <div class="form-group">
-        <input type="hidden" name="voiceSample2" class="form-control" [(ngModel)]="model.voiceSample2" required>
-      </div>
-      <div class="form-group">
-        <input type="hidden" name="voiceSample3" class="form-control" [(ngModel)]="model.voiceSample3" required>
-      </div>
-      <!--Section with graphic voice recordings-->
-      <div class="gvr" *ngIf="model.textContext">
+    <div *ngIf="response == null">
+      <form #registerForm="ngForm" novalidate (ngSubmit)="registerForm.valid && register()" class="col-sm-6 offset-3">
         <div class="form-group">
-          <span>
-            <p>Sample 1 status: <i [ngClass]="model.voiceSample1 ? 'green' : 'red'" class="fa fa-circle"></i></p>
-          </span>
-          <button [disabled]="model.voiceSample1" class="btn btn-block btn-warning" (click)="getSample1()">Record Voice Sample 1</button>
+          <input type="text" name="email" placeholder="e-mail" class="form-control" [(ngModel)]="model.email" required>
         </div>
-        <div *ngIf="model.voiceSample1" class="form-group">
-          <span>
-            <p>Sample 2 status: <i [ngClass]="model.voiceSample2 ? 'green' : 'red'" class="fa fa-circle"></i></p>
-          </span>
-          <button [disabled]="model.voiceSample2" class="btn btn-block btn-warning" (click)="getSample2()">Record Voice Sample 2</button>
+        <div *ngIf="model.email" class="form-group">
+          <p>Type secret text context:</p>
+          <input type="text" name="textContext" placeholder="Example: Roses are red" class="form-control"
+            [(ngModel)]="model.textContext" required>
         </div>
-        <div *ngIf="model.voiceSample2" class="form-group">
-          <span>
-            <p>Sample 3 status: <i [ngClass]="model.voiceSample3 ? 'green' : 'red'" class="fa fa-circle"></i></p>
-          </span>
-          <button [disabled]="model.voiceSample3" class="btn btn-block btn-warning" (click)="getSample3()">Record Voice Sample 3</button>
+        <div class="form-group">
+          <input type="hidden" name="voiceSample1" class="form-control" [(ngModel)]="model.voiceSample1" required>
         </div>
-      </div>
-      <!--Section with graphic voice recordings END-->
-      <div class="form-group mt-4 mb-4">
-        <input [disabled]="!registerForm.valid" type="submit" value="Rejestracja" class="btn btn-success btn-lg">
-      </div>
-    </form>
+        <div class="form-group">
+          <input type="hidden" name="voiceSample2" class="form-control" [(ngModel)]="model.voiceSample2" required>
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="voiceSample3" class="form-control" [(ngModel)]="model.voiceSample3" required>
+        </div>
+        <!--Section with graphic voice recordings-->
+        <div class="gvr" *ngIf="model.textContext">
+          <div class="form-group">
+            <span>
+              <p>Sample 1 status: <i [ngClass]="model.voiceSample1 ? 'green' : 'red'" class="fa fa-circle"></i></p>
+            </span>
+            <button [disabled]="model.voiceSample1" class="btn btn-block btn-warning" (click)="getSample1()">Record
+              Voice Sample 1</button>
+          </div>
+          <div *ngIf="model.voiceSample1" class="form-group">
+            <span>
+              <p>Sample 2 status: <i [ngClass]="model.voiceSample2 ? 'green' : 'red'" class="fa fa-circle"></i></p>
+            </span>
+            <button [disabled]="model.voiceSample2" class="btn btn-block btn-warning" (click)="getSample2()">Record
+              Voice Sample 2</button>
+          </div>
+          <div *ngIf="model.voiceSample2" class="form-group">
+            <span>
+              <p>Sample 3 status: <i [ngClass]="model.voiceSample3 ? 'green' : 'red'" class="fa fa-circle"></i></p>
+            </span>
+            <button [disabled]="model.voiceSample3" class="btn btn-block btn-warning" (click)="getSample3()">Record
+              Voice Sample 3</button>
+          </div>
+        </div>
+        <!--Section with graphic voice recordings END-->
+        <div class="form-group mt-4 mb-4">
+          <input [disabled]="!registerForm.valid" type="submit" value="Rejestracja" class="btn btn-success btn-lg">
+        </div>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="response">
+    <h3 class="text-center">{{response}}</h3>
   </div>
 
   <div *ngIf="recording" class="recording-overlay p-4 text-center">

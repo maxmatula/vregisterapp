@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Register } from '../_models/register';
+import { environment } from 'src/environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
 
 declare var MediaRecorder: any;
 
@@ -15,12 +17,22 @@ export class RegisterComponent implements OnInit {
   recording = false;
   timer = -6;
   sampleNo: number;
+  apiUrl = environment.apiUrl;
+  response: string;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.model = new Register();
   }
 
   ngOnInit() {
+  }
+
+  register() {
+    this.http.post(`${this.apiUrl}/voice/register`, this.model, {responseType: 'text'}).subscribe(resp => {
+      this.response = resp;
+    }, error => {
+      this.response = 'Unauthorized! Login failed';
+    });
   }
 
   getSample1() {
@@ -135,10 +147,6 @@ export class RegisterComponent implements OnInit {
       });
 
     });
-  }
-
-  register() {
-    console.log(this.model);
   }
 
 }
