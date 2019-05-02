@@ -1,0 +1,31 @@
+.red {
+    color: red!important;
+}
+
+.light-red {
+    color: red;
+}
+
+.green {
+    color: greenyellow!important;
+}
+
+.recording-overlay {
+    position: absolute;
+    z-index: 1000;
+    top: 5%;
+    left: auto;
+    right: auto;
+    width: 80%;
+    height: 90%;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+}
+
+.text-big {
+    font-size: 2rem;
+}
+
+.text-giant {
+    font-size: 3rem;
+}

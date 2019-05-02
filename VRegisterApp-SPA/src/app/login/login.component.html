@@ -11,4 +11,38 @@
               </button>
       </div>
     </div>
+    <h2>Login with voice</h2>
+    <hr>
+    <form #loginForm="ngForm" novalidate (ngSubmit)="loginForm.valid && login()" class="col-sm-6 offset-3">
+      <div class="form-group">
+        <input type="text" name="email" placeholder="e-mail" class="form-control" [(ngModel)]="model.email" required>
+      </div>
+      <button [disabled]="!model.email" class="btn btn-block btn-success" (click)="getContext()">Check Email</button>
+      <div class="form-group">
+        <input type="hidden" name="voiceSample1" class="form-control" [(ngModel)]="model.voiceSample1" required>
+      </div>
+      <div class="gvr" *ngIf="context">
+        <div class="form-group">
+          <span>
+            <p>Voice sample status: <i [ngClass]="model.voiceSample1 ? 'green' : 'red'" class="fa fa-circle"></i></p>
+          </span>
+          <button [disabled]="model.voiceSample1" class="btn btn-block btn-warning" (click)="getSample1()">Record Voice Sample 1</button>
+        </div>
+      </div>
+      <div class="form-group mt-4 mb-4">
+        <input [disabled]="!loginForm.valid" type="submit" value="Logowanie" class="btn btn-success btn-lg">
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="recording" class="recording-overlay p-4 text-center">
+    <h1 class="red">Recording sample: 1</h1>
+    <hr>
+    <p class="text-big">When timer will show 0</p>
+    <h3 class="text-giant">Timer: <span [class]="timer >= 0 ? 'green' : 'red'" class="light-red">{{timer}}</span></h3>
+    <div class="mt-4 mb-4">
+      <p class="text-big">Please say:</p>
+      <p class="text-giant font-weight-light green">{{context}}</p>
+    </div>
+  </div>
   </div>

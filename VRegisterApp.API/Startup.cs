@@ -30,8 +30,12 @@ namespace VRegisterApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<VRegisterContext>(options => 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+            ;
+            services.AddDbContext<VRegisterContext>(options =>
                 options.UseSqlite("Data Source=Vregister.db"));
             services.AddScoped<IVoiceService, VoiceService>();
         }

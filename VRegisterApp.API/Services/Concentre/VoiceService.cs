@@ -63,7 +63,7 @@ namespace VRegisterApp.API.Services.Concentre
             newUser.Email = registerRequest.Email;
             newUser.TextContext = registerRequest.TextContext;
             var samplesNumber = new Random();
-            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(200, 260));
+            newUser = FindPattern(registerRequest, newUser, samplesNumber.Next(500, 600));
             await _db.Users.AddAsync(newUser);
             await _db.SaveChangesAsync();
             return true;

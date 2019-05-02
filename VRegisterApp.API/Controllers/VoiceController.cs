@@ -59,10 +59,10 @@ namespace VRegisterApp.API.Controllers
             }
         }
 
-        [HttpGet("getContext/{email}")]
-        public async Task<IActionResult> GetContext(string email)
+        [HttpPost("getContext")]
+        public async Task<IActionResult> GetContext(UserContext ucRequest)
         {
-            var context = await _voiceService.GetUserContext(email);
+            var context = await _voiceService.GetUserContext(ucRequest.Email);
 
             if (context != "")
             {

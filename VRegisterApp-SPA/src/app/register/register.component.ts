@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Register } from '../_models/register';
-import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
 
 declare var MediaRecorder: any;
 

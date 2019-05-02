@@ -1,5 +1,4 @@
 export class Login {
     email: string;
-    textContext: string;
-    voiceSample: string;
+    voiceSample1: string | ArrayBuffer;
 }
